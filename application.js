@@ -6,6 +6,12 @@
     let statusDisplay = document.querySelector('#status');
     let port;
 
+    $('#form1 input').on('change', function() {
+      var orientation = $('input[name=orientation]:checked', '#form1').val();
+      console.log(orientation);
+      port.send(new TextEncoder('utf-8').encode(orientation));
+    });
+
     function addLine(linesId, text) {
       var senderLine = document.createElement("div");
       senderLine.className = 'line';
