@@ -34,7 +34,6 @@
         currentReceiverLine.innerHTML = currentReceiverLine.innerHTML + text;
       } else {
         currentReceiverLine = addLine(linesId, text);
-        console.log("text",text);
       }
     }
 
@@ -50,6 +49,8 @@
           var usb_parsed = JSON.parse(usb_input); // TODO figure out why empty data is sent
           console.log("json", usb_parsed);
           armedTimeDisplay.textContent = display(usb_parsed["armed_time"]);
+          $("#orientation-lh").prop("checked", usb_parsed["screen_rot"] == "l");
+          $("#orientation-rh").prop("checked", usb_parsed["screen_rot"] == "r");
           appendLine('receiver_lines', usb_input);
         };
         port.onReceiveError = error => {
