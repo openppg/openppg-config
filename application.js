@@ -8,8 +8,13 @@
 
     $('#form1 input').on('change', function() {
       var orientation = $('input[name=orientation]:checked', '#form1').val();
-      console.log(orientation);
-      port.send(new TextEncoder('utf-8').encode(orientation));
+      var usb_json = {
+          "major_v" : 4,
+          "minor_v" : 1,
+          "screen_rot": orientation
+        }
+        console.log("sending", usb_json);
+      port.send(new TextEncoder('utf-8').encode(JSON.stringify(usb_json)));
     });
 
     function addLine(linesId, text) {
@@ -25,9 +30,10 @@
 
     function appendLine(linesId, text) {
       if (currentReceiverLine) {
-        currentReceiverLine.innerHTML =  currentReceiverLine.innerHTML + text;
+        currentReceiverLine.innerHTML = currentReceiverLine.innerHTML + text;
       } else {
         currentReceiverLine = addLine(linesId, text);
+        console.log("text",text);
       }
     }
 
@@ -38,13 +44,13 @@
 
         port.onReceive = data => {
           let textDecoder = new TextDecoder();
-          console.log("decoded");
-          console.log(textDecoder.decode(data));
-          if (data.getInt8() === 13) {
-            currentReceiverLine = null;
-          } else {
-            appendLine('receiver_lines', textDecoder.decode(data));
-          }
+          var usb_input = textDecoder.decode(data);
+          if (usb_input.length < 5) { return };
+          var usb_parsed = JSON.parse(usb_input); // TODO figure out why empty data is sent
+          console.log(usb_input);
+          console.log("json", usb_parsed);
+          console.log("armed", display(usb_parsed["armed_time"]));
+          appendLine('receiver_lines', usb_input);
         };
         port.onReceiveError = error => {
           console.error(error);
@@ -52,6 +58,13 @@
       }, error => {
         statusDisplay.textContent = error;
       });
+    }
+    
+    function display (minutes) {
+      const format = val => `0${Math.floor(val)}`.slice(-2)
+      const hours = minutes / 60
+
+      return [hours, minutes % 60].map(format).join(':')
     }
 
     connectButton.addEventListener('click', function() {
