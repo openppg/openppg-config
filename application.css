@@ -12,16 +12,9 @@
   display: flex;
 }
 
-.sender, .receiver {
-  flex: 1;
-}
-
-.sender {
-  margin-right: 8px;
-}
-
 .receiver {
-  margin-left: 8px;
+  flex: 1;
+  margin-left: 5px;
 }
 
 .lines-header {

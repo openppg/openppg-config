@@ -92,19 +92,5 @@
         connect();
       }
     });
-
-
-    let commandLine = document.getElementById("command_line");
-
-    commandLine.addEventListener("keypress", function(event) {
-      if (event.keyCode === 13) {
-        if (commandLine.value.length > 0) {
-          addLine('sender_lines', commandLine.value);
-          commandLine.value = '';
-        }
-      }
-
-      port.send(new TextEncoder('utf-8').encode(String.fromCharCode(event.which || event.keyCode)));
-    });
   });
 })();
