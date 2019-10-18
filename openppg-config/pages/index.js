@@ -5,18 +5,17 @@ import Nav from '../components/nav'
 const Home = () => (
   <div>
     <Head>
-      <title>Home</title>
+      <title>OpenPPG Config</title>
       <link rel='icon' href='/favicon.ico' />
     </Head>
 
     <Nav />
 
     <div className='hero'>
-      <h1 className='title'>Welcome to Next.js!</h1>
+      <h1 className='title'>OpenPPG Config</h1>
       <p className='description'>
-        To get started, edit <code>pages/index.js</code> and save to reload.
+        Configure your OpenPPG X4 or SP140
       </p>
-
       <div className='row'>
         <a href='https://nextjs.org/docs' className='card'>
           <h3>Documentation &rarr;</h3>
