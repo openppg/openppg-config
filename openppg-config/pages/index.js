@@ -2,6 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import Nav from '../components/nav'
 import WebUSB from '../components/webusb'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const Home = () => (
   <div>
@@ -36,7 +37,11 @@ const Home = () => (
       </div>
     </div>
 
-    <WebUSB />
+    <div className="webusb-container">
+      <div className='row'>
+        <WebUSB />
+      </div>
+    </div>
 
     <style jsx>{`
       .hero {

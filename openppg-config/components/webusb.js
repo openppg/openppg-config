@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import * as Serial from '../helpers/serial'
+import { Button } from 'reactstrap';
 
 const connectSerial = () => (
   Serial.requestPort().then(selectedPort => {
@@ -12,33 +13,12 @@ const connectSerial = () => (
 )
 
 const WebUSB = () => (
-  <div>
-    <button onClick={() => connectSerial()}>Connect</button>
+  <div id="">
+    <Button id="connect-btn" color="primary" onClick={() => connectSerial()}>Connect</Button>
 
     <style jsx>{`
-      :global(body) {
-        margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, Avenir Next, Avenir,
-          Helvetica, sans-serif;
-      }
-      nav {
+      connect-btn {
         text-align: center;
-      }
-      ul {
-        display: flex;
-        justify-content: space-between;
-      }
-      nav > ul {
-        padding: 4px 16px;
-      }
-      li {
-        display: flex;
-        padding: 6px 8px;
-      }
-      a {
-        color: #067df7;
-        text-decoration: none;
-        font-size: 13px;
       }
     `}</style>
   </div>
