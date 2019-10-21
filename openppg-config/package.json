@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "export": "next export"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
@@ -13,6 +14,7 @@
     "next": "9.1.1",
     "react": "16.10.2",
     "react-dom": "16.10.2",
-    "reactstrap": "^8.1.1"
+    "reactstrap": "^8.1.1",
+    "webpack": "^4.41.2"
   }
 }
