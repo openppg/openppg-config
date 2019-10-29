@@ -4,7 +4,6 @@
   document.addEventListener('DOMContentLoaded', e => {
     let connectButton = document.querySelector("#connect");
     let statusDisplay = document.querySelector('#status');
-    let armedTimeDisplay = document.querySelector('#armed_time');
     let port;
 
     $('#form1 input').on('change', function() {
@@ -48,9 +47,10 @@
           if (usb_input.length < 5) { return };
           var usb_parsed = JSON.parse(usb_input); // TODO figure out why empty data is sent
           console.log("json", usb_parsed);
-          armedTimeDisplay.textContent = display(usb_parsed["armed_time"]);
+          $("#armed_time").text(display(usb_parsed["armed_time"]));
           $("#orientation-lh").prop("checked", usb_parsed["screen_rot"] == "l");
           $("#orientation-rh").prop("checked", usb_parsed["screen_rot"] == "r");
+          $("#device_id").text(usb_parsed["device_id"]);
           appendLine('receiver_lines', usb_input);
         };
         port.onReceiveError = error => {
