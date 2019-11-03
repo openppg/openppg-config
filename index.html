@@ -3,35 +3,51 @@
   <head>
     <title>OpenPPG</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="serial.js"></script>
     <script src="application.js"></script>
     <link rel="stylesheet" href="application.css">
   </head>
   <body>
-    <div class="main-content">
+    <div class="main-content container">
       <h1>OpenPPG Configurator</h1>
-      <div class="connect-container">
-        <button id="connect" class="button black">Connect</button>
+      <div class="connect-container-old">
+        <button id="connect" class="btn btn-primary">Connect</button>
         <span id="status"></span>
       </div>
       <h3>Screen config</h3>
-      <div id="form1">
-        <h4>Orientation</h4>
-        <input type="radio" id="orientation-lh" name="orientation" value="2"> Left Hand
-        <input type="radio" id="orientation-rh" name="orientation" value="0"> Right Hand
-        <br>
+      <form id="form1">
+        <h5>Orientation</h5>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" name="orientation" type="radio" id="orientation-lh" value="2">
+              <label class="form-check-label" for="inlineRadio1">Left Hand</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" name="orientation" type="radio" id="orientation-rh" value="0">
+              <label class="form-check-label" for="inlineRadio2">Right Hand</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="seaPressureInput">Baro Pressure Calibration (hpa)</label>
+            <input type="text" class="form-control" id="seaPressureInput" placeholder="pressure in hpa">
+            <small id="seaPressure" class="form-text text-muted">Get baro pressure for your area <a href="#">here</a></small>
+          </div>
+        </div>
         <p>
           <strong>Armed Time:</strong>
-          <code><span id="armed_time"></span></code>
+          <code><span id="armedTime"></span></code>
         </p>
         <p>
           <strong>Device ID: </strong>
-          <code><span id="device_id"></span></code>
+          <code><span id="deviceId"></span></code>
         </p>
-      </div>
-      <br> 
-      <br> 
-      <div class="container">
+      </form>
+      
+      <div class="container-old">
         <div class="receiver">
           <div class="lines-header">Receiver</div>
           <div class="lines-body">

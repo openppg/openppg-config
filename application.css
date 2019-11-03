@@ -4,12 +4,13 @@
   font-size: 14px;
 }
 
-.connect-container {
+.connect-container-old {
   margin: 20px 0;
 }
 
-.container {
+.container-old {
   display: flex;
+  margin-top: 3em;
 }
 
 .receiver {

@@ -11,7 +11,8 @@
       var usb_json = {
           "major_v" : 4,
           "minor_v" : 1,
-          "screen_rot": orientation
+          "screen_rot": orientation,
+          "sea_pressure": parseFloat("1018.96")
         }
       console.log("sending", usb_json);
       port.send(new TextEncoder('utf-8').encode(JSON.stringify(usb_json)));
@@ -46,11 +47,11 @@
           var usb_input = textDecoder.decode(data);
           if (usb_input.length < 5) { return };
           var usb_parsed = JSON.parse(usb_input); // TODO figure out why empty data is sent
-          console.log("json", usb_parsed);
-          $("#armed_time").text(display(usb_parsed["armed_time"]));
-          $("#orientation-lh").prop("checked", usb_parsed["screen_rot"] == "l");
-          $("#orientation-rh").prop("checked", usb_parsed["screen_rot"] == "r");
-          $("#device_id").text(usb_parsed["device_id"]);
+          $("#armedTime").text(display(usb_parsed["armed_time"]));
+          $("#deviceId").text(usb_parsed["device_id"]);
+          $("#orientation-lh").prop("checked", usb_parsed["screen_rot"] == 2);
+          $("#orientation-rh").prop("checked", usb_parsed["screen_rot"] == 0);
+          $("#seaPressureInput").val(usb_parsed["sea_pressure"]);
           appendLine('receiver_lines', usb_input);
         };
         port.onReceiveError = error => {
