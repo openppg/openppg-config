@@ -4,50 +4,8 @@
   font-size: 14px;
 }
 
-.connect-container-old {
+.connect-container {
   margin: 20px 0;
-}
-
-.container-old {
-  display: flex;
-  margin-top: 3em;
-}
-
-.receiver {
-  flex: 1;
-  margin-left: 5px;
-}
-
-.lines-header {
-  height: 30px;
-  width: 100%;
-  box-sizing: border-box;
-  background-color: #444;
-  line-height: 30px;
-  color: white;
-  padding-left: 10px;
-}
-
-.lines-body {
-  width: 100%;
-  background-color: #222;
-  min-height: 300px;
-  padding: 10px 0 20px 0;
-}
-
-.line, .command-line {
-  box-sizing: border-box;
-  width: 100%;
-  color: #f1f1f1;
-  background-color: #222;
-  outline: none;
-  border: none;
-  padding: 5px 10px;
-  font-size: 14px;
-}
-
-.line:hover {
-   background-color: #444;
 }
 
 .button::before {

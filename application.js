@@ -24,25 +24,6 @@
       port.send(new TextEncoder('utf-8').encode(JSON.stringify(usb_json)));
     });
 
-    function addLine(linesId, text) {
-      var senderLine = document.createElement("div");
-      senderLine.className = 'line';
-      var textnode = document.createTextNode(text);
-      senderLine.appendChild(textnode);
-      document.getElementById(linesId).appendChild(senderLine);
-      return senderLine;
-    }
-
-    let currentReceiverLine;
-
-    function appendLine(linesId, text) {
-      if (currentReceiverLine) {
-        currentReceiverLine.innerHTML = currentReceiverLine.innerHTML + text;
-      } else {
-        currentReceiverLine = addLine(linesId, text);
-      }
-    }
-
     function connect() {
       port.connect().then(() => {
         statusDisplay.textContent = '';
@@ -60,7 +41,7 @@
           $("#units-temp").prop("checked", usb_parsed["metric_temp"]);
           $("#units-alt").prop("checked", usb_parsed["metric_alt"]);
           $("#seaPressureInput").val(usb_parsed["sea_pressure"]);
-          appendLine('receiver_lines', usb_input);
+          console.log("received", usb_input);
         };
         port.onReceiveError = error => {
           console.error(error);
