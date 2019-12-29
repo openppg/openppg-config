@@ -8,11 +8,17 @@
 
     $('#form1 input').on('change', function() {
       var orientation = $('input[name=orientation]:checked', '#form1').val();
+      var baro_calibration = $("input#seaPressureInput").val();
+      var metric_temp = $("#units-temp").prop("checked");
+      var metric_alt = $("#units-alt").prop("checked");
+
       var usb_json = {
           "major_v" : 4,
           "minor_v" : 1,
           "screen_rot": orientation,
-          "sea_pressure": parseFloat("1018.96")
+          "sea_pressure": parseFloat(baro_calibration),
+          "metric_temp": metric_temp,
+          "metric_alt": metric_alt
         }
       console.log("sending", usb_json);
       port.send(new TextEncoder('utf-8').encode(JSON.stringify(usb_json)));
@@ -51,6 +57,8 @@
           $("#deviceId").text(usb_parsed["device_id"]);
           $("#orientation-lh").prop("checked", usb_parsed["screen_rot"] == 2);
           $("#orientation-rh").prop("checked", usb_parsed["screen_rot"] == 0);
+          $("#units-temp").prop("checked", usb_parsed["metric_temp"]);
+          $("#units-alt").prop("checked", usb_parsed["metric_alt"]);
           $("#seaPressureInput").val(usb_parsed["sea_pressure"]);
           appendLine('receiver_lines', usb_input);
         };
@@ -61,7 +69,7 @@
         statusDisplay.textContent = error;
       });
     }
-    
+
     function display (minutes) {
       const format = val => `0${Math.floor(val)}`.slice(-2)
       const hours = minutes / 60
