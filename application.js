@@ -25,6 +25,15 @@
       $("#saved-status").show().delay(2500).fadeOut(300);
     });
 
+    document.querySelector("button#bl").addEventListener('click', function(){
+      var bl_command_json = {
+        "command": "rbl"
+      }
+      console.log("sending", bl_command_json);
+      port.send(new TextEncoder('utf-8').encode(JSON.stringify(bl_command_json)));
+      disconnect();
+    });
+
     function connect() {
       port.connect().then(() => {
         statusDisplay.textContent = '';
@@ -61,10 +70,7 @@
 
     connectButton.addEventListener('click', function() {
       if (port) {
-        port.disconnect();
-        connectButton.textContent = 'Connect';
-        statusDisplay.textContent = '';
-        port = null;
+        disconnect();
       } else {
         serial.requestPort().then(selectedPort => {
           port = selectedPort;
@@ -84,5 +90,12 @@
         connect();
       }
     });
+
+    function disconnect(){
+      port.disconnect();
+      connectButton.textContent = 'Connect';
+      statusDisplay.textContent = '';
+      port = null;
+    }
   });
 })();
