@@ -4,6 +4,7 @@
     <title>OpenPPG</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/67603b7667.js" crossorigin="anonymous"></script>
     <script src="serial.js"></script>
     <script src="application.js"></script>
     <link rel="stylesheet" href="application.css">
@@ -13,9 +14,9 @@
       <h1>OpenPPG Configurator</h1>
       <div class="connect-container">
         <button id="connect" class="btn btn-primary">Connect</button>
-        <span id="status"></span>
+        <span id="status"> </span>
       </div>
-      <h3>Screen config</h3>
+      <h3>Screen config <span id="saved-status"> <i class="fas fa-save"></i></span></h3>
       <form id="form1">
         <h5>Orientation</h5>
         <div class="form-row">

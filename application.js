@@ -22,6 +22,7 @@
         }
       console.log("sending", usb_json);
       port.send(new TextEncoder('utf-8').encode(JSON.stringify(usb_json)));
+      $("#saved-status").show().delay(2500).fadeOut(300);
     });
 
     function connect() {
