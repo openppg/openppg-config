@@ -9,6 +9,8 @@
     $('#form1 input').on('change', function() {
       var orientation = $('input[name=orientation]:checked', '#form1').val();
       var baro_calibration = $("input#seaPressureInput").val();
+      var min_batt_v = $("input#minBattInput").val();
+      var max_batt_v = $("input#maxBattInput").val();
       var metric_temp = $("#units-temp").prop("checked");
       var metric_alt = $("#units-alt").prop("checked");
 
@@ -18,7 +20,9 @@
           "screen_rot": orientation,
           "sea_pressure": parseFloat(baro_calibration),
           "metric_temp": metric_temp,
-          "metric_alt": metric_alt
+          "metric_alt": metric_alt,
+          "min_batt_v": min_batt_v,
+          "max_batt_v": max_batt_v
         }
       console.log("sending", usb_json);
       port.send(new TextEncoder('utf-8').encode(JSON.stringify(usb_json)));
@@ -51,6 +55,8 @@
           $("#units-temp").prop("checked", usb_parsed["metric_temp"]);
           $("#units-alt").prop("checked", usb_parsed["metric_alt"]);
           $("#seaPressureInput").val(usb_parsed["sea_pressure"]);
+          $("#minBattInput").val(usb_parsed["min_batt_v"]);
+          $("#maxBattInput").val(usb_parsed["max_batt_v"]);
           console.log("received", usb_input);
         };
         port.onReceiveError = error => {

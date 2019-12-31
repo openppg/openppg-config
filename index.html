@@ -45,11 +45,24 @@
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-3">
             <label for="seaPressureInput">Baro Pressure Calibration (mbar)</label>
             <input type="number" step="0.01" class="form-control" id="seaPressureInput" placeholder="pressure in mbar">
             <small id="seaPressure" class="form-text text-muted">Get baro pressure for your area
               <a href="https://darksky.net/" target="_blank">here</a></small>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="minBattInput">Battery Min Voltage (0%)</label>
+            <input type="number" step="0.1" class="form-control" id="minBattInput" placeholder="low battery voltage">
+            <small id="seaPressure" class="form-text text-muted">for 6S Lipo use 42 and for 7S Lipo use 49</small>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="maxBattInput">Battery Max Voltage (100%)</label>
+            <input type="number" step="0.1" class="form-control" id="maxBattInput" placeholder="full battery voltage">
+            <small id="seaPressure" class="form-text text-muted">for 6S Lipo use 50 and for 7S Lipo use 58.8</small>
           </div>
         </div>
         <p>
