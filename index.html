@@ -9,6 +9,8 @@
     <script src="application.js"></script>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111553987-3"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.610.0.min.js"></script>
+
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -17,7 +19,33 @@
       gtag('config', 'UA-111553987-3');
     </script>
 
-    <link rel="stylesheet" href="application.css">
+  <script>
+    function uuidv4() {
+      return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+      );
+    }
+
+    AWS.config.update({
+      region: "us-east-1",
+      // accessKeyId default can be used while using the downloadable version of DynamoDB.
+      // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+      // secretAccessKey default can be used while using the downloadable version of DynamoDB.
+      // For security reasons, do not store AWS Credentials in your files. Use Amazon Cognito instead.
+    });
+
+      // set the default config object
+    var creds = new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: 'us-east-1_FOuQpLCys'
+      });
+    // AWS.config.credentials = creds;
+
+    // Create the DynamoDB service object
+    var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+
+  </script>
+
+  <link rel="stylesheet" href="application.css">
   </head>
   <body>
     <div class="main-content container">
@@ -82,6 +110,10 @@
         <p>
           <strong>Device ID: </strong>
           <code><span id="deviceId"></span></code>
+        </p>
+        <p>
+          <strong>Firmware Version: </strong>
+          <code><span id="version"></span></code>
         </p>
       </form>
       <br />

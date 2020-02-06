@@ -47,16 +47,9 @@
           let textDecoder = new TextDecoder();
           var usb_input = textDecoder.decode(data);
           if (usb_input.length < 5) { return };
-          var usb_parsed = JSON.parse(usb_input); // TODO figure out why empty data is sent
-          $("#armedTime").text(display(usb_parsed["armed_time"]));
-          $("#deviceId").text(usb_parsed["device_id"]);
-          $("#orientation-lh").prop("checked", usb_parsed["screen_rot"] == 2);
-          $("#orientation-rh").prop("checked", usb_parsed["screen_rot"] == 0);
-          $("#units-temp").prop("checked", usb_parsed["metric_temp"]);
-          $("#units-alt").prop("checked", usb_parsed["metric_alt"]);
-          $("#seaPressureInput").val(usb_parsed["sea_pressure"]);
-          $("#minBattInput").val(usb_parsed["min_batt_v"]);
-          $("#maxBattInput").val(usb_parsed["max_batt_v"]);
+          var usb_data = JSON.parse(usb_input); // TODO figure out why empty data is sent
+          updateUIfromJSON(usb_data);
+          logtodynamo(usb_data);
           console.log("received", usb_input);
         };
         port.onReceiveError = error => {
@@ -65,6 +58,19 @@
       }, error => {
         statusDisplay.textContent = error;
       });
+    }
+
+    function updateUIfromJSON(usb_data){
+      $("#armedTime").text(display(usb_data["armed_time"]));
+      $("#deviceId").text(usb_data["device_id"]);
+      $("#version").text(usb_data["major_v"] + "." + usb_data["minor_v"]);
+      $("#orientation-lh").prop("checked", usb_data["screen_rot"] == 2);
+      $("#orientation-rh").prop("checked", usb_data["screen_rot"] == 0);
+      $("#units-temp").prop("checked", usb_data["metric_temp"]);
+      $("#units-alt").prop("checked", usb_data["metric_alt"]);
+      $("#seaPressureInput").val(usb_data["sea_pressure"]);
+      $("#minBattInput").val(usb_data["min_batt_v"]);
+      $("#maxBattInput").val(usb_data["max_batt_v"]);
     }
 
     function display (minutes) {
@@ -103,5 +109,32 @@
       statusDisplay.textContent = '';
       port = null;
     }
+
+    function logtodynamo(usb_data){
+      var params = {
+        TableName: 'device_logs',
+        Item: {
+          'uuid': {S: uuidv4()},
+          'device_id' : {S: usb_data["device_id"]},
+          'minutes' : {N: usb_data["armed_time"].toString()},
+          'firmware_version' : {N: usb_data["major_v"] + "." + usb_data["minor_v"]}
+        }
+      };
+
+      // Call DynamoDB to add the item to the table
+      ddb.putItem(params, function(err, data) {
+        if (err) {
+          console.log("Error", err);
+        } else {
+          console.log()
+          console.log("Success", data);
+        }
+      });
+    }
   });
 })();
+
+var now = new Date;
+var utc_timestamp = Date.UTC(now.getUTCFullYear(),now.getUTCMonth(), now.getUTCDate() ,
+      now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
+console.log(new Date(utc_timestamp).toISOString());
