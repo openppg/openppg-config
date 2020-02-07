@@ -53,10 +53,10 @@
           console.log("received", usb_input);
         };
         port.onReceiveError = error => {
-          console.error(error);
+          console.error(error.message);
         };
       }, error => {
-        statusDisplay.textContent = error;
+        statusDisplay.textContent = error.message;
       });
     }
 
