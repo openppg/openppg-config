@@ -5,9 +5,10 @@
     let connectButton = document.querySelector("#connect");
     let statusDisplay = document.querySelector('#status');
     let port;
+    $("*", "#form-main").prop('disabled',true);
 
-    $('#form1 input').on('change', function() {
-      var orientation = $('input[name=orientation]:checked', '#form1').val();
+    $('#form-main input').on('change', function() {
+      var orientation = $('input[name=orientation]:checked', '#form-main').val();
       var baro_calibration = $("input#seaPressureInput").val();
       var min_batt_v = $("input#minBattInput").val();
       var max_batt_v = $("input#maxBattInput").val();
@@ -24,7 +25,6 @@
           "min_batt_v": min_batt_v,
           "max_batt_v": max_batt_v
         }
-      console.log("sending", usb_json);
       port.send(new TextEncoder('utf-8').encode(JSON.stringify(usb_json)));
       $("#saved-status").show().delay(2500).fadeOut(300);
     });
@@ -33,7 +33,6 @@
       var bl_command_json = {
         "command": "rbl"
       }
-      console.log("sending", bl_command_json);
       port.send(new TextEncoder('utf-8').encode(JSON.stringify(bl_command_json)));
       disconnect();
     });
@@ -42,6 +41,7 @@
       port.connect().then(() => {
         statusDisplay.textContent = '';
         connectButton.textContent = 'Disconnect';
+        $("*", "#form-main").prop('disabled',false);
 
         port.onReceive = data => {
           let textDecoder = new TextDecoder();
@@ -88,7 +88,7 @@
           port = selectedPort;
           connect();
         }).catch(error => {
-          statusDisplay.textContent = error;
+          statusDisplay.textContent = error.message;
         });
       }
     });
@@ -104,6 +104,8 @@
     });
 
     function disconnect(){
+      $("*", "#form-main").prop('disabled',true);
+
       port.disconnect();
       connectButton.textContent = 'Connect';
       statusDisplay.textContent = '';
@@ -117,7 +119,8 @@
           'uuid': {S: uuidv4()},
           'device_id' : {S: usb_data["device_id"]},
           'minutes' : {N: usb_data["armed_time"].toString()},
-          'firmware_version' : {N: usb_data["major_v"] + "." + usb_data["minor_v"]}
+          'firmware_version' : {N: usb_data["major_v"] + "." + usb_data["minor_v"]},
+          'timestamp': {S: moment().toISOString()}
         }
       };
 
@@ -133,8 +136,3 @@
     }
   });
 })();
-
-var now = new Date;
-var utc_timestamp = Date.UTC(now.getUTCFullYear(),now.getUTCMonth(), now.getUTCDate() ,
-      now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
-console.log(new Date(utc_timestamp).toISOString());
