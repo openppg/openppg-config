@@ -3,4 +3,6 @@ permalink: /index.html
 ---
 
 # OpenPPG Config
- Configure OpenPPG controller
+ Configure your OpenPPG controller via WebUSB
+ 
+ Lives at https://openppg.github.io/openppg-config/
