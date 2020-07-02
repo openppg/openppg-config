@@ -50,6 +50,8 @@
           var usb_parsed = JSON.parse(usb_input); // TODO figure out why empty data is sent
           $("#armedTime").text(display(usb_parsed["armed_time"]));
           $("#deviceId").text(usb_parsed["device_id"]);
+          $("#versionMajor").text(usb_parsed["major_v"]);
+          $("#versionMinor").text(usb_parsed["minor_v"]);
           $("#orientation-lh").prop("checked", usb_parsed["screen_rot"] == 2);
           $("#orientation-rh").prop("checked", usb_parsed["screen_rot"] == 0);
           $("#units-temp").prop("checked", usb_parsed["metric_temp"]);
