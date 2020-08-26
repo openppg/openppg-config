@@ -6,6 +6,13 @@
     let statusDisplay = document.querySelector('#status');
     let port;
 
+    if ("usb" in navigator)
+      { console.log("has WebUSB support"); }
+    else {
+      $("#form1 :input").prop("disabled", true);
+      alert("WebUSB not supported: Please use Google Chrome");
+    }
+
     $('#form1 input').on('change', function() {
       var orientation = $('input[name=orientation]:checked', '#form1').val();
       var baro_calibration = $("input#seaPressureInput").val();
