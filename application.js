@@ -5,11 +5,11 @@
     let connectButton = document.querySelector("#connect");
     let statusDisplay = document.querySelector('#status');
     let port;
+    $("#form1 :input").prop("disabled", true);
 
     if ("usb" in navigator)
       { console.log("has WebUSB support"); }
     else {
-      $("#form1 :input").prop("disabled", true);
       alert("WebUSB not supported: Please use Google Chrome");
     }
 
@@ -49,6 +49,7 @@
       port.connect().then(() => {
         statusDisplay.textContent = '';
         connectButton.textContent = 'Disconnect';
+        $("#form1 :input").prop("disabled", false);
 
         port.onReceive = data => {
           let textDecoder = new TextDecoder();
@@ -72,8 +73,13 @@
           console.error(error);
         };
       }, error => {
-        statusDisplay.textContent = error;
+        displayError(error)
       });
+    }
+
+    function displayError(error){
+      console.log(error);
+      statusDisplay.textContent = error.message;
     }
 
     function display (minutes) {
@@ -91,7 +97,7 @@
           port = selectedPort;
           connect();
         }).catch(error => {
-          statusDisplay.textContent = error;
+          displayError(error);
         });
       }
     });
@@ -108,6 +114,7 @@
 
     function disconnect(){
       port.disconnect();
+      $("#form1 :input").prop("disabled", true);
       connectButton.textContent = 'Connect';
       statusDisplay.textContent = '';
       port = null;

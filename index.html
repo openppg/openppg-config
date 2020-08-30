@@ -35,11 +35,12 @@
   <body>
     <div class="main-content container">
       <h1>OpenPPG Configurator</h1>
+      <h6>Change settings on your OpenPPG device via USB</h6>
       <div class="connect-container">
         <button id="connect" class="btn btn-primary">Connect</button>
         <span id="status"> </span>
       </div>
-      <h3>Screen config <span id="saved-status"> <i class="fas fa-save"></i></span></h3>
+      <h3>Controller config <span id="saved-status"> <i class="fas fa-save"></i></span></h3>
       <form id="form1">
         <h5>Orientation</h5>
         <div class="form-row">
@@ -54,6 +55,7 @@
             </div>
           </div>
         </div>
+        <br />
         <h5>Units</h5>
         <div class="form-row">
           <div class="form-group col-md-4">
@@ -75,17 +77,19 @@
               <a href="https://darksky.net/" target="_blank">here</a></small>
           </div>
         </div>
+        <br />
 
+        <h5>Battery</h5>
         <div class="form-row">
           <div class="form-group col-md-3">
             <label for="minBattInput">Battery Min Voltage (0%)</label>
             <input type="number" step="0.1" class="form-control" id="minBattInput" placeholder="low battery voltage">
-            <small id="seaPressure" class="form-text text-muted">for 6S Lipo use 42 and for 7S Lipo use 49</small>
+            <small class="form-text text-muted">for 6S Lipo use 42 and for 7S Lipo use 49</small>
           </div>
           <div class="form-group col-md-3">
             <label for="maxBattInput">Battery Max Voltage (100%)</label>
             <input type="number" step="0.1" class="form-control" id="maxBattInput" placeholder="full battery voltage">
-            <small id="seaPressure" class="form-text text-muted">for 6S Lipo use 50 and for 7S Lipo use 58.8</small>
+            <small class="form-text text-muted">for 6S Lipo use 50 and for 7S Lipo use 58.8</small>
           </div>
         </div>
         <p>
