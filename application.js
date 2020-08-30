@@ -7,12 +7,14 @@
     let port;
     $("#form1 :input").prop("disabled", true);
 
+    // check if WebUSB is supported
     if ("usb" in navigator)
       { console.log("has WebUSB support"); }
     else {
       alert("WebUSB not supported: Please use Google Chrome");
     }
 
+    // listen for form input changes and save them to the device
     $('#form1 input').on('change', function() {
       var orientation = $('input[name=orientation]:checked', '#form1').val();
       var baro_calibration = $("input#seaPressureInput").val();
@@ -32,16 +34,16 @@
           "max_batt_v": max_batt_v
         }
       console.log("sending", usb_json);
-      port.send(new TextEncoder('utf-8').encode(JSON.stringify(usb_json)));
-      $("#saved-status").show().delay(2500).fadeOut(300);
+      sendJSON(usb_json);
+      $("#saved-status").removeClass("blink");
+      $("#saved-status").width(); // trigger a DOM reflow
+      $("#saved-status").addClass("blink");
     });
 
     document.querySelector("button#bl").addEventListener('click', function(){
-      var bl_command_json = {
-        "command": "rbl"
-      }
+      let bl_command_json = { "command": "rbl" };
       console.log("sending", bl_command_json);
-      port.send(new TextEncoder('utf-8').encode(JSON.stringify(bl_command_json)));
+      sendJSON(bl_command_json);
       disconnect();
     });
 
@@ -119,5 +121,10 @@
       statusDisplay.textContent = '';
       port = null;
     }
+
+    function sendJSON(usb_json){
+      port.send(new TextEncoder('utf-8').encode(JSON.stringify(usb_json)));
+    }
+
   });
 })();

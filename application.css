@@ -8,6 +8,14 @@
   margin: 20px 0;
 }
 
-#saved-status {
-  display: none;
+.blinkable {
+  opacity: 0;
+}
+.blink {
+  opacity: 0;
+  animation: blinker 2s ease-out;
+}
+
+@keyframes blinker {
+  33% { opacity: 1; }
 }
