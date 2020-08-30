@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>OpenPPG</title>
+    <title>OpenPPG Configurator</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script>
@@ -43,7 +43,7 @@
       <h3>Controller config <span id="saved-status"> <i class="fas fa-save"></i></span></h3>
       <form id="form1">
         <h5>Orientation</h5>
-        <div class="form-row">
+        <div class="form-row mb-3">
           <div class="form-group col-md-4">
             <div class="form-check form-check-inline">
               <input class="form-check-input" name="orientation" type="radio" id="orientation-lh" value="2">
@@ -55,7 +55,7 @@
             </div>
           </div>
         </div>
-        <br />
+
         <h5>Units</h5>
         <div class="form-row">
           <div class="form-group col-md-4">
@@ -69,44 +69,58 @@
             </div>
           </div>
         </div>
-        <div class="form-row">
+        <div class="form-row mb-3">
           <div class="form-group col-md-3">
-            <label for="seaPressureInput">Baro Pressure Calibration (mbar)</label>
-            <input type="number" step="0.01" class="form-control" id="seaPressureInput" placeholder="pressure in mbar">
+            <label for="seaPressureInput">Baro Pressure Calibration</label>
+            <div class="input-group">
+              <input type="number" step="0.01" class="form-control" id="seaPressureInput" placeholder="pressure">
+              <div class="input-group-append">
+                <span class="input-group-text" id="inputGroup-sizing-default">mbar</span>
+              </div>
+            </div>
             <small id="seaPressure" class="form-text text-muted">Get baro pressure for your area
               <a href="https://darksky.net/" target="_blank">here</a></small>
           </div>
         </div>
-        <br />
 
         <h5>Battery</h5>
-        <div class="form-row">
+        <div class="form-row mb-3">
           <div class="form-group col-md-3">
             <label for="minBattInput">Battery Min Voltage (0%)</label>
-            <input type="number" step="0.1" class="form-control" id="minBattInput" placeholder="low battery voltage">
+            <div class="input-group">
+              <input type="number" step="0.1" class="form-control" id="minBattInput" placeholder="low battery voltage">
+              <div class="input-group-append">
+                <span class="input-group-text" id="inputGroup-sizing-default">volts</span>
+              </div>
+            </div>
             <small class="form-text text-muted">for 6S Lipo use 42 and for 7S Lipo use 49</small>
           </div>
+
           <div class="form-group col-md-3">
             <label for="maxBattInput">Battery Max Voltage (100%)</label>
-            <input type="number" step="0.1" class="form-control" id="maxBattInput" placeholder="full battery voltage">
+            <div class="input-group">
+              <input type="number" step="0.1" class="form-control" id="maxBattInput" placeholder="full battery voltage">
+              <div class="input-group-append">
+                <span class="input-group-text" id="inputGroup-sizing-default">volts</span>
+              </div>
+            </div>
             <small class="form-text text-muted">for 6S Lipo use 50 and for 7S Lipo use 58.8</small>
           </div>
         </div>
-        <p>
+        <p class="mb-1">
           <strong>Armed Time:</strong>
           <code><span id="armedTime"></span></code>
         </p>
-        <p>
+        <p class="mb-1">
           <strong>Device ID: </strong>
           <code><span id="deviceId"></span></code>
         </p>
-        <p>
+        <p class="mb-1">
           <strong>Firmware Version: </strong>
           <code><span id="versionMajor"></span>.<span id="versionMinor"></span></code>
         </p>
       </form>
-      <br />
-      <div class="col-md-4">
+      <div class="col-md-4 mt-4">
         <div class="card card-body bg-light">
           <h4 class="card-title">Beta Area</h4>
         <p>
