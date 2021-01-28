@@ -1,3 +1,10 @@
+// check if WebUSB is supported
+if ("usb" in navigator)
+  { console.log("has WebUSB support"); }
+else {
+  alert("WebUSB not supported: Please use Google Chrome");
+}
+
 (function() {
   'use strict';
 
@@ -6,13 +13,6 @@
     let statusDisplay = document.querySelector('#status');
     let port;
     $("#form1 :input").prop("disabled", true);
-
-    // check if WebUSB is supported
-    if ("usb" in navigator)
-      { console.log("has WebUSB support"); }
-    else {
-      alert("WebUSB not supported: Please use Google Chrome");
-    }
 
     // listen for form input changes and save them to the device
     $('#form1 input').on('change', function() {
@@ -46,6 +46,8 @@
       sendJSON(bl_command_json);
       disconnect();
     });
+
+    $("#btn-pressure").click(updateLocalPressure());
 
     function connect() {
       port.connect().then(() => {
