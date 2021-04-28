@@ -2,24 +2,30 @@
 permalink: /index.html
 ---
 
-# OpenPPG Config
+# This repo is retired
+
+New page lives at https://config.openppg.com
+
+-------------------------------------------------
+
+### OpenPPG Config
+
  Configure your OpenPPG controller via WebUSB
 
- Lives at https://openppg.github.io/openppg-config/
 
-### Notes:
+#### Notes:
 
 - Only works in Google Chrome and related chromium variants (like Brave browser and new Microsoft Edge)
 - Also tested and working in Chrome on Android
 - In Windows you may have to enable the new USB backed by navigating to `chrome://flags/#new-usb-backend`
 
-### Local development
+#### Local development
 
 Chrome requires that websites are served over HTTPS, even locally, to use WebUSB. To do this I use the http-server node package in the main directory like this:
 
 `http-server --ssl --cert ~/.localhost-ssl/localhost.crt --key ~/.localhost-ssl/localhost.key`
 
-### Contributing
+#### Contributing
 
 Contributions are welcome via Github pull requests.
 
